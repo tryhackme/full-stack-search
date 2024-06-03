@@ -1,56 +1,71 @@
-# Accomodation Search
+# Accommodation Search
 
-## Techincal Coding Test
+## Technical Coding Test
 
 This project has a simple setup with an api, hooked up to MongoDB and a frontend piece initiated with create-react-app.
 
+_Note: This project uses `yarn`, but if you don't have yarn installed, feel free to use `npm`_
+
 ## Install and run
 
+From the project root:
+```
+yarn install
+```
+or
+```
+npm install
+```
+
+### Env
+
+Within the `./packages/api` folder, create a .env file (Or rename the existing `.env.sample`) and request the env vars.
+
+### Run
+
+Once install has finished, you can use the following to run both the API and UI:
+
+```
+yarn start
+```
+or
+```
+npm run start
+```
 ### API
 
-Navigate to the `/api` folder
+To run the API separately, navigate to the `./packages/api` folder
 
 ```
-$ cd api
+$ cd packages/api
 ```
 
-Install all dependancies
-
-```
-$ yarn install
-```
-
-Create a new `.env` file and request the required env vars.
-
-Run the `api` server
+And run the `api` server with
 
 ```
 $ yarn dev
 ```
+or
+```
+$ npm run dev
+```
 
-_Note: This project uses `yarn`, but if you don't have yarn installed, feel free to use `npm`_
-
+UI served at http://localhost:3000
 ### Client
 
-Navigate to the `/client` folder
+To run the `client` server separately, navigate to the `./packages/client` folder
 
 ```
-$ cd api
+$ cd ./packages/client
 ```
-
-Install all dependancies
-
-```
-$ yarn install
-```
-
-Run the `client` server
-
+And run the `client` with
 ```
 $ yarn start
 ```
-
-_Note: This project uses `yarn`, but if you don't have yarn installed, feel free to use `npm`_
+or
+```
+$ npm run start
+```
 
 Visit http://localhost:3000
 
