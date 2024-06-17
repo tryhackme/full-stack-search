@@ -1,10 +1,11 @@
 import express from "express";
 import dotenv from "dotenv";
 import cors from 'cors';
-import { connectToCluster } from "./db/connect";
+import { MongoClient } from "mongodb";
 
 dotenv.config();
 const PORT = process.env.PORT || 3001;
+const DATABASE = process.env.DATABASE || '';
 const DATABASE_URL = process.env.DATABASE_URL || '';
 
 const app = express();
@@ -13,9 +14,13 @@ app.use(cors())
 app.use(express.json());
 
 app.get('/hotels', async (req, res) => {
-  const mongoClient = await connectToCluster(DATABASE_URL);
+  const mongoClient = new MongoClient(DATABASE_URL);
+  console.log('Connecting to MongoDB Atlas cluster...');
+
   try {
-    const db = mongoClient.db('accommodation_search')
+    await mongoClient.connect();
+    console.log('Successfully connected to MongoDB Atlas!');
+    const db = mongoClient.db(DATABASE)
     const collection = db.collection('hotels');
     res.send(await collection.find().toArray())
   } finally {
