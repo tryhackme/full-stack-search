@@ -1,14 +1,15 @@
 {
   "name": "full-stack-search",
   "private": true,
-  "version": "1.0.1",
+  "version": "1.0.2",
   "workspaces": [
     "packages/*"
   ],
   "scripts": {
-    "start": "concurrently \"npm run -w api dev\" \"npm run -w client start\" ",
+    "start": "concurrently npm:start:*",
     "start:api": "npm run -w api dev",
-    "start:client": "npm run -w client start"
+    "start:client": "npm run -w client start",
+    "dev": "npm start"
   },
   "devDependencies": {
     "concurrently": "^8.2.2"
