@@ -27,3 +27,8 @@ try {
 } finally {
   await client.close();
 }
+
+process.on('SIGTERM', async() => {
+  await mongod.stop();
+  process.exit(0);
+});
