@@ -9,7 +9,8 @@
     "start": "concurrently npm:start:*",
     "start:api": "npm run -w api dev",
     "start:client": "npm run -w client start",
-    "dev": "npm start"
+    "dev": "npm start",
+    "test": "npm run -w client test"
   },
   "devDependencies": {
     "concurrently": "^8.2.2"
