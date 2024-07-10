@@ -1,5 +1,4 @@
 import { useState, type ChangeEvent } from 'react';
-import './App.css';
 
 type Hotel = { _id: string, chain_name: string; hotel_name: string; city: string, country: string };
 
@@ -42,7 +41,7 @@ function App() {
                 <input
                   type="text"
                   className="form-control form-input"
-                  placeholder="Search accomodation..."
+                  placeholder="Search accommodation..."
                   onChange={fetchData}
                 />
                 {showClearBtn && (

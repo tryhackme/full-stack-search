@@ -4,34 +4,22 @@
 
 This project has a simple setup with an api, hooked up to MongoDB and a frontend piece initiated with create-react-app.
 
-_Note: This project uses `yarn`, but if you don't have yarn installed, feel free to use `npm`_
-
 ## Install and run
 
 From the project root:
-```
-yarn install
-```
-or
+
 ```
 npm install
 ```
-
-### Env
-
-Within the `./packages/api` folder, create a .env file (Or rename the existing `.env.sample`) and request the env vars.
 
 ### Run
 
 Once install has finished, you can use the following to run both the API and UI:
 
 ```
-yarn start
-```
-or
-```
 npm run start
 ```
+
 ### API
 
 To run the API separately, navigate to the `./packages/api` folder
@@ -43,14 +31,11 @@ $ cd packages/api
 And run the `api` server with
 
 ```
-$ yarn dev
-```
-or
-```
 $ npm run dev
 ```
 
-UI served at http://localhost:3000
+The API should start at http://localhost:3001
+
 ### Client
 
 To run the `client` server separately, navigate to the `./packages/client` folder
@@ -58,36 +43,40 @@ To run the `client` server separately, navigate to the `./packages/client` folde
 ```
 $ cd ./packages/client
 ```
+
 And run the `client` with
-```
-$ yarn start
-```
-or
+
 ```
 $ npm run start
 ```
 
-Visit http://localhost:3000
+The UI should start at http://localhost:3000
+
+### Database connection & environment variables
+
+By default, the code is set up to start and seed a MongoDB in-memory server, which should be sufficient for the test. The database URL will be logged on startup, and the seed data can be found at ./packages/api/db/seeds.
+
+If this setup does not work for you or if you prefer to use your own MongoDB server, you can create a .env file. In the ./packages/api folder, create a .env file (or rename the existing .env.sample) and fill in the environment variables.
 
 ## Task at hand
 
-When the project is up and running, you schould see a search-bar on the screen. This one is currently hooked up to the `/hotels` endpoint.
+When the project is up and running, you should see a search-bar on the screen. This one is currently hooked up to the `/hotels` endpoint.
 When you type in a partial string that is part of the name of the hotel, it should appear on the screen.
 Ie. type in `resort` and you should see some Hotels where the word `resort` is present.
 
 You will also see 2 headings called **"Countries"** and **"Cities"**.
 
-The assignement is to build a performant way to search for Hotels, Cities or Countries.
+The assignment is to build a performant way to search for Hotels, Cities or Countries.
 Partial searches will be fine. Hotels will need to filterable by location as well.
 Ie. The search `uni` should render
 
-- Hotels that are located in the United States, United Kingdom or have the workd `uni` in the hotel name.
+- Hotels that are located in the United States, United Kingdom or have the word `uni` in the hotel name.
 - Countries that have `uni` in their name Ie. United States, United Kingdom
 - No Cities as there is no match
 
-<img src="./assets/search-example.png" width="400px" />
-
 Clicking the close button within the search field should clear out the field and results.
+
+<img src="./assets/search-example.png" width="400px" />
 
 ### Database structure
 

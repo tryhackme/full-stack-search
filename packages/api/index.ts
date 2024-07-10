@@ -4,9 +4,14 @@ import cors from 'cors';
 import { MongoClient } from "mongodb";
 
 dotenv.config();
+
+if (process.env.NODE_ENV !== 'production' && !process.env.DATABASE_URL) {
+  await import('./db/startAndSeedMemoryDB');
+}
+
 const PORT = process.env.PORT || 3001;
-const DATABASE = process.env.DATABASE || '';
-const DATABASE_URL = process.env.DATABASE_URL || '';
+if (!process.env.DATABASE_URL) throw new Error('DATABASE_URL is not set');
+const DATABASE_URL = process.env.DATABASE_URL;
 
 const app = express();
 
@@ -15,12 +20,12 @@ app.use(express.json());
 
 app.get('/hotels', async (req, res) => {
   const mongoClient = new MongoClient(DATABASE_URL);
-  console.log('Connecting to MongoDB Atlas cluster...');
+  console.log('Connecting to MongoDB...');
 
   try {
     await mongoClient.connect();
-    console.log('Successfully connected to MongoDB Atlas!');
-    const db = mongoClient.db(DATABASE)
+    console.log('Successfully connected to MongoDB!');
+    const db = mongoClient.db()
     const collection = db.collection('hotels');
     res.send(await collection.find().toArray())
   } finally {
@@ -29,5 +34,5 @@ app.get('/hotels', async (req, res) => {
 })
 
 app.listen(PORT, () => {
-  console.log(`Server Started at ${PORT}`)
+  console.log(`API Server Started at ${PORT}`)
 })
