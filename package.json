@@ -8,10 +8,10 @@
   "scripts": {
     "start": "concurrently npm:start:*",
     "start:api": "npm run -w api dev",
-    "start:api-no-watch": "npm run -w api dev:no-watch",
     "start:client": "npm run -w client start",
     "dev": "npm start",
-    "test": "npm run -w client test"
+    "test": "npm run -w client test",
+    "api-no-watch": "npm run -w api dev:no-watch"
   },
   "devDependencies": {
     "concurrently": "^8.2.2"

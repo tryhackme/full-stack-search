@@ -29,9 +29,9 @@
       "name": "Run Tests",
       "command": "npm run test"
     },
-    "start:api:no-watch": {
+    "api-no-watch": {
       "name": "Start API (no watch)",
-      "command": "npm run start:api-no-watch"
+      "command": "npm run api-no-watch"
     }
   }
 }
