@@ -7,6 +7,7 @@ This project has a simple setup with an api, hooked up to MongoDB and a frontend
 ## Install and run
 
 From the project root:
+
 ```
 npm install
 ```
@@ -18,6 +19,7 @@ Once install has finished, you can use the following to run both the API and UI:
 ```
 npm run start
 ```
+
 ### API
 
 To run the API separately, navigate to the `./packages/api` folder
@@ -33,6 +35,7 @@ $ npm run dev
 ```
 
 The API should start at http://localhost:3001
+
 ### Client
 
 To run the `client` server separately, navigate to the `./packages/client` folder
@@ -40,7 +43,9 @@ To run the `client` server separately, navigate to the `./packages/client` folde
 ```
 $ cd ./packages/client
 ```
+
 And run the `client` with
+
 ```
 $ npm run start
 ```
@@ -52,7 +57,6 @@ The UI should start at http://localhost:3000
 By default, the code is set up to start and seed a MongoDB in-memory server, which should be sufficient for the test. The database URL will be logged on startup, and the seed data can be found at ./packages/api/db/seeds.
 
 If this setup does not work for you or if you prefer to use your own MongoDB server, you can create a .env file. In the ./packages/api folder, create a .env file (or rename the existing .env.sample) and fill in the environment variables.
-
 
 ## Task at hand
 
