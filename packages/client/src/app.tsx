@@ -1,9 +1,13 @@
 import { useState, type ChangeEvent } from 'react';
+import { getCodeSandboxHost } from "@codesandbox/utils";
 
 type Hotel = { _id: string, chain_name: string; hotel_name: string; city: string, country: string };
 
+const codeSandboxHost = getCodeSandboxHost(3001)
+const API_URL = codeSandboxHost ? `https://${codeSandboxHost}` : 'http://localhost:3001'
+
 const fetchAndFilterHotels = async (value: string) => {
-  const hotelsData = await fetch('http://localhost:3001/hotels');
+  const hotelsData = await fetch(`${API_URL}/hotels`);
   const hotels = (await hotelsData.json()) as Hotel[];
   return hotels.filter(
     ({ chain_name, hotel_name, city, country }) =>
