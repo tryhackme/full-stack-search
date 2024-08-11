@@ -1,32 +1,27 @@
 import express from "express";
 import cors from "cors";
-import { MongoClient } from "mongodb";
 import { env } from "./config/env";
-
-if (env.NODE_ENV !== "production") {
-  await import("./db/startAndSeedMemoryDB");
-}
+import { connectToMongoDB, getMongoClient } from "./database/mongo";
 
 const app = express();
 
 app.use(cors());
 app.use(express.json());
 
-app.get("/hotels", async (req, res) => {
-  const mongoClient = new MongoClient(env.DATABASE_URL);
-  console.log("Connecting to MongoDB...");
+await connectToMongoDB();
 
+app.get("/hotels", async (req, res) => {
   try {
-    await mongoClient.connect();
-    console.log("Successfully connected to MongoDB!");
-    const db = mongoClient.db();
+    const db = getMongoClient().db();
     const collection = db.collection("hotels");
     res.send(await collection.find().toArray());
-  } finally {
-    await mongoClient.close();
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Internal Server Error");
   }
 });
 
-app.listen(env.PORT, () => {
-  console.log(`API Server Started at ${env.PORT}`);
+const PORT = env.PORT;
+app.listen(PORT, () => {
+  console.log(`API Server Started at ${PORT}`);
 });
