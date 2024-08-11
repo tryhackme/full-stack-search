@@ -1,5 +1,5 @@
 import type { Context } from "src/types/common";
-import { OK } from "../routes/_utils/statuses";
+import { OK } from "../_utils/statuses";
 import { HotelService } from "./hotels.service";
 
 export class HotelController {

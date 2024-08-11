@@ -1,7 +1,7 @@
 import { Router } from "express";
 import { getMongoClient } from "src/database/mongo";
-import { HotelController } from "../hotels/hotels.controller";
-import { HotelService } from "../hotels/hotels.service";
+import { HotelController } from "./hotels.controller";
+import { HotelService } from "./hotels.service";
 
 export async function setupHotelRoutes(): Promise<Router> {
   const mongoClient = getMongoClient();
