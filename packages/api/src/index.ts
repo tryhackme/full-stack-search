@@ -1,7 +1,8 @@
 import express from "express";
 import cors from "cors";
 import { env } from "./config/env";
-import { connectToMongoDB, getMongoClient } from "./database/mongo";
+import { connectToMongoDB } from "./database/mongo";
+import { hotelRoutes } from "./http/routes/hotels.routes";
 
 const app = express();
 
@@ -10,16 +11,7 @@ app.use(express.json());
 
 await connectToMongoDB();
 
-app.get("/hotels", async (req, res) => {
-  try {
-    const db = getMongoClient().db();
-    const collection = db.collection("hotels");
-    res.send(await collection.find().toArray());
-  } catch (error) {
-    console.error(error);
-    res.status(500).send("Internal Server Error");
-  }
-});
+app.use(hotelRoutes);
 
 const PORT = env.PORT;
 app.listen(PORT, () => {
