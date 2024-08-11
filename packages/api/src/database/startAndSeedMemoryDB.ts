@@ -1,21 +1,18 @@
 import { MongoMemoryServer } from "mongodb-memory-server";
 import { MongoClient } from "mongodb";
-import { cities } from "db/seeds/cities.js";
-import { countries } from "./seeds/countries";
-import { hotels } from "./seeds/hotels";
+import { cities } from "./seeds/cities.js";
+import { countries } from "./seeds/countries.js";
+import { hotels } from "./seeds/hotels.js";
+import { env } from "src/config/env.js";
 
 const mongod = await MongoMemoryServer.create({
   instance: {
-    port: 3002,
-  }
+    port: env.DATABASE_PORT,
+  },
 });
 console.log("MongoMemoryServer started on", mongod.getUri());
 
-const uri = mongod.getUri();
-
-process.env.DATABASE_URL = uri;
-
-const client = new MongoClient(uri);
+const client = new MongoClient(mongod.getUri());
 try {
   await client.connect();
   const db = client.db();
@@ -28,7 +25,7 @@ try {
   await client.close();
 }
 
-process.on('SIGTERM', async () => {
+process.on("SIGTERM", async () => {
   await mongod.stop();
   process.exit(0);
 });
