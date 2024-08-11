@@ -1,7 +1,7 @@
 import { useState, type ChangeEvent } from 'react';
 import { getCodeSandboxHost } from "@codesandbox/utils";
 
-type Hotel = { _id: string, chain_name: string; hotel_name: string; city: string, country: string };
+type Hotel = { _id: string, chainName: string; hotelName: string; city: string, country: string };
 
 const codeSandboxHost = getCodeSandboxHost(3001)
 const API_URL = codeSandboxHost ? `https://${codeSandboxHost}` : 'http://localhost:3001'
@@ -10,9 +10,9 @@ const fetchAndFilterHotels = async (value: string) => {
   const hotelsData = await fetch(`${API_URL}/hotels`);
   const hotels = (await hotelsData.json()) as Hotel[];
   return hotels.filter(
-    ({ chain_name, hotel_name, city, country }) =>
-      chain_name.toLowerCase().includes(value.toLowerCase()) ||
-      hotel_name.toLowerCase().includes(value.toLowerCase()) ||
+    ({ chainName, hotelName, city, country }) =>
+      chainName.toLowerCase().includes(value.toLowerCase()) ||
+      hotelName.toLowerCase().includes(value.toLowerCase()) ||
       city.toLowerCase().includes(value.toLowerCase()) ||
       country.toLowerCase().includes(value.toLowerCase())
   );
@@ -61,7 +61,7 @@ function App() {
                     <li key={index}>
                       <a href={`/hotels/${hotel._id}`} className="dropdown-item">
                         <i className="fa fa-building mr-2"></i>
-                        {hotel.hotel_name}
+                        {hotel.hotelName}
                       </a>
                       <hr className="divider" />
                     </li>
