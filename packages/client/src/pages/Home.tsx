@@ -1,13 +1,15 @@
 import { useEffect, useState } from "react";
-import type { Hotel } from "schemas";
 import { SearchBar } from "../components/Search/SearchBar";
 import { SearchResults } from "../components/Search/SearchResults";
 import { getHotels } from "../services/hotels/get-hotels";
 import { useDebounce } from "../hooks/useDebounce";
+import { getCountries } from "../services/countries/get-countries";
+import type { Country, Hotel } from "schemas";
 
 function Home() {
   const [inputValue, setInputValue] = useState("");
-  const [hotels, setHotels] = useState<Hotel[]>([]);
+  const [countries, setCountries] = useState<Country[] | []>([]);
+  const [hotels, setHotels] = useState<Hotel[] | []>([]);
   const [showClearBtn, setShowClearBtn] = useState(false);
   const [dropdownVisible, setDropdownVisible] = useState(false);
 
@@ -17,11 +19,21 @@ function Home() {
     const fetchHotels = async () => {
       if (debouncedValue) {
         const filteredHotels = await getHotels(debouncedValue);
-        setHotels(filteredHotels);
+        const filteredCountries = await getCountries(debouncedValue);
+
+        const [hotels, countries] = await Promise.all([
+          filteredHotels,
+          filteredCountries,
+        ]);
+
+        setHotels(hotels ?? []);
+        setCountries(countries ?? []);
+
         setShowClearBtn(true);
         setDropdownVisible(true);
       } else {
         setHotels([]);
+        setCountries([]);
         setShowClearBtn(false);
         setDropdownVisible(false);
       }
@@ -33,6 +45,7 @@ function Home() {
   const clearSearch = () => {
     setInputValue("");
     setHotels([]);
+    setCountries([]);
     setShowClearBtn(false);
     setDropdownVisible(false);
   };
@@ -50,7 +63,9 @@ function Home() {
                 onClear={clearSearch}
               />
 
-              {dropdownVisible && <SearchResults hotels={hotels} />}
+              {dropdownVisible && (
+                <SearchResults countries={countries} hotels={hotels} />
+              )}
             </div>
           </div>
         </div>
