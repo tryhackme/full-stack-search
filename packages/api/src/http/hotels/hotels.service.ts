@@ -11,7 +11,18 @@ export class HotelService {
     this.collection = this.dbClient.db().collection<Hotel>(this.collectionName);
   }
 
-  async listHotels() {
-    return await this.collection.find().toArray();
+  async listHotels(search?: string) {
+    const query = search
+      ? {
+          $or: [
+            { chainName: { $regex: search, $options: "i" } },
+            { hotelName: { $regex: search, $options: "i" } },
+            { city: { $regex: search, $options: "i" } },
+            { country: { $regex: search, $options: "i" } },
+          ],
+        }
+      : {};
+
+    return await this.collection.find(query).toArray();
   }
 }

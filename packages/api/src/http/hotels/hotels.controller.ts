@@ -5,9 +5,10 @@ import { HotelService } from "./hotels.service";
 export class HotelController {
   constructor(private readonly service: HotelService) {}
 
-  async listHotels({ res, next }: Context) {
+  async listHotels({ req, res, next }: Context) {
     try {
-      const hotels = await this.service.listHotels();
+      const { search } = req.query;
+      const hotels = await this.service.listHotels(search?.toString());
 
       res.status(OK).json(hotels);
     } catch (error) {
