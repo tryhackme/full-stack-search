@@ -127,7 +127,7 @@ _When all the behaviour is implemented, feel free to add some observations or co
 [
   {
     "country": "Belgium",
-    "countryisocode": "BE"
+    "countryIsoCode": "BE"
   },
   {
     /* ... */
