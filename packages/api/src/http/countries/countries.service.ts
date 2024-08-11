@@ -1,4 +1,4 @@
-import type { Collection, MongoClient } from "mongodb";
+import { ObjectId, type Collection, type MongoClient } from "mongodb";
 import type { Country } from "schemas";
 
 export class CountryService {
@@ -21,5 +21,12 @@ export class CountryService {
       : {};
 
     return await this.collection.find(query).toArray();
+  }
+
+  async getCountry(countryId: string) {
+    return await this.collection.findOne({
+      // @ts-ignore
+      _id: new ObjectId(countryId),
+    });
   }
 }

@@ -20,4 +20,19 @@ export class CountryController {
       next(error);
     }
   }
+
+  async getCountry({ req, res, next }: Context) {
+    try {
+      const { id } = req.params;
+      const country = await this.service.getCountry(id);
+
+      if (!country) {
+        throw new NotFoundError("country not found.");
+      }
+
+      res.status(OK).json({ country });
+    } catch (error) {
+      next(error);
+    }
+  }
 }

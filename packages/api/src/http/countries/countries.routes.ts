@@ -12,6 +12,9 @@ export async function setupCountriesRoutes(): Promise<Router> {
   countriesRoutes.get("/countries", async (req, res, next) =>
     countryController.listCountries({ req, res, next })
   );
+  countriesRoutes.get("/countries/:id", async (req, res, next) =>
+    countryController.getCountry({ req, res, next })
+  );
 
   return countriesRoutes;
 }
