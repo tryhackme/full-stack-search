@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-const hotelSchema = z.object({
+export const hotelSchema = z.object({
   _id: z.string(),
   chainName: z.string(),
   hotelName: z.string(),
