@@ -12,6 +12,9 @@ export async function setupCitiesRoutes(): Promise<Router> {
   citiesRoutes.get("/cities", async (req, res, next) =>
     cityController.listCities({ req, res, next })
   );
+  citiesRoutes.get("/cities/:id", async (req, res, next) =>
+    cityController.getCity({ req, res, next })
+  );
 
   return citiesRoutes;
 }

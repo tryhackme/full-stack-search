@@ -20,4 +20,19 @@ export class CityController {
       next(error);
     }
   }
+
+  async getCity({ req, res, next }: Context) {
+    try {
+      const { id } = req.params;
+      const city = await this.service.getCity(id);
+
+      if (!city) {
+        throw new NotFoundError("city not found.");
+      }
+
+      res.status(OK).json({ city });
+    } catch (error) {
+      next(error);
+    }
+  }
 }
