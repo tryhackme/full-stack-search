@@ -93,16 +93,16 @@ _When all the behaviour is implemented, feel free to add some observations or co
 ```json
 [
   {
-    "chain_name": "Samed Resorts Group",
-    "hotel_name": "Sai Kaew Beach Resort",
-    "addressline1": "8/1 Moo 4 Tumbon Phe Muang",
-    "addressline2": "",
-    "zipcode": "21160",
+    "chainName": "Samed Resorts Group",
+    "hotelName": "Sai Kaew Beach Resort",
+    "addressLine1": "8/1 Moo 4 Tumbon Phe Muang",
+    "addressLine2": "",
+    "zipCode": "21160",
     "city": "Koh Samet",
     "state": "Rayong",
     "country": "Thailand",
-    "countryisocode": "TH",
-    "star_rating": 4
+    "countryIsoCode": "TH",
+    "starRating": 4
   },
   {
     /* ... */
@@ -127,7 +127,7 @@ _When all the behaviour is implemented, feel free to add some observations or co
 [
   {
     "country": "Belgium",
-    "countryisocode": "BE"
+    "countryIsoCode": "BE"
   },
   {
     /* ... */
