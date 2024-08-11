@@ -12,6 +12,9 @@ export async function setupHotelRoutes(): Promise<Router> {
   hotelRoutes.get("/hotels", async (req, res, next) =>
     hotelController.listHotels({ req, res, next })
   );
+  hotelRoutes.get("/hotels/:id", async (req, res, next) =>
+    hotelController.getHotel({ req, res, next })
+  );
 
   return hotelRoutes;
 }
