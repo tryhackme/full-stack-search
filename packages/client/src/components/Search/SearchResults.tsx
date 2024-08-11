@@ -1,12 +1,13 @@
-import type { Country, Hotel } from "schemas";
+import type { City, Country, Hotel } from "schemas";
 import { ItemResult } from "./ItemResult";
 
 export interface SearchResult {
   hotels: Hotel[] | [];
   countries: Country[] | [];
+  cities: City[] | [];
 }
 
-export function SearchResults({ hotels, countries }: SearchResult) {
+export function SearchResults({ hotels, countries, cities }: SearchResult) {
   return (
     <div className="search-dropdown-menu dropdown-menu w-100 show p-2">
       <h2>Hotels</h2>
@@ -31,6 +32,19 @@ export function SearchResults({ hotels, countries }: SearchResult) {
             key={index}
             label={`${country.country} (${country.countryIsoCode})`}
             link={`/countries/${country._id}`}
+          />
+        ))
+      )}
+
+      <h2>Cities</h2>
+      {!cities.length ? (
+        <p>No cities matched</p>
+      ) : (
+        cities.map((city, index) => (
+          <ItemResult
+            key={index}
+            label={city.name}
+            link={`/cities/${city._id}`}
           />
         ))
       )}

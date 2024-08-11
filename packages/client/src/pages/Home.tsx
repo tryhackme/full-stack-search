@@ -4,48 +4,51 @@ import { SearchResults } from "../components/Search/SearchResults";
 import { getHotels } from "../services/hotels/get-hotels";
 import { useDebounce } from "../hooks/useDebounce";
 import { getCountries } from "../services/countries/get-countries";
-import type { Country, Hotel } from "schemas";
+import type { City, Country, Hotel } from "schemas";
+import { getCities } from "../services/cities/get-cities";
 
 function Home() {
   const [inputValue, setInputValue] = useState("");
-  const [countries, setCountries] = useState<Country[] | []>([]);
   const [hotels, setHotels] = useState<Hotel[] | []>([]);
+  const [countries, setCountries] = useState<Country[] | []>([]);
+  const [cities, setCities] = useState<City[] | []>([]);
   const [showClearBtn, setShowClearBtn] = useState(false);
   const [dropdownVisible, setDropdownVisible] = useState(false);
 
   const debouncedValue = useDebounce(inputValue, 300);
 
   useEffect(() => {
-    const fetchHotels = async () => {
+    const fetchResults = async () => {
       if (debouncedValue) {
-        const filteredHotels = await getHotels(debouncedValue);
-        const filteredCountries = await getCountries(debouncedValue);
-
-        const [hotels, countries] = await Promise.all([
-          filteredHotels,
-          filteredCountries,
+        const [hotels, countries, cities] = await Promise.all([
+          getHotels(debouncedValue),
+          getCountries(debouncedValue),
+          getCities(debouncedValue),
         ]);
 
         setHotels(hotels ?? []);
         setCountries(countries ?? []);
+        setCities(cities ?? []);
 
         setShowClearBtn(true);
         setDropdownVisible(true);
       } else {
         setHotels([]);
         setCountries([]);
+        setCities([]);
         setShowClearBtn(false);
         setDropdownVisible(false);
       }
     };
 
-    fetchHotels();
+    fetchResults();
   }, [debouncedValue]);
 
   const clearSearch = () => {
     setInputValue("");
     setHotels([]);
     setCountries([]);
+    setCities([]);
     setShowClearBtn(false);
     setDropdownVisible(false);
   };
@@ -64,7 +67,11 @@ function Home() {
               />
 
               {dropdownVisible && (
-                <SearchResults countries={countries} hotels={hotels} />
+                <SearchResults
+                  hotels={hotels}
+                  countries={countries}
+                  cities={cities}
+                />
               )}
             </div>
           </div>
