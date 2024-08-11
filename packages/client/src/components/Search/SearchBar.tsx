@@ -1,11 +1,13 @@
 import type { ChangeEvent } from "react";
 
 export function SearchBar({
+  value,
   onSearch,
   showClearBtn,
   onClear,
 }: {
-  onSearch: (event: ChangeEvent<HTMLInputElement>) => void;
+  value: string;
+  onSearch: (value: string) => void;
   showClearBtn: boolean;
   onClear: () => void;
 }) {
@@ -16,7 +18,10 @@ export function SearchBar({
         type="text"
         className="form-control form-input"
         placeholder="Search accommodation..."
-        onChange={onSearch}
+        value={value}
+        onChange={(event: ChangeEvent<HTMLInputElement>) =>
+          onSearch(event.target.value)
+        }
       />
       {showClearBtn && (
         <span className="left-pan" onClick={onClear}>
