@@ -1,14 +1,16 @@
 import type { Collection, MongoClient } from "mongodb";
-import type { Hotel } from "schemas";
+import type { Country } from "schemas";
 
 export class CountryService {
-  private collection: Collection<Hotel>;
+  private collection: Collection<Country>;
 
   constructor(
     private readonly dbClient: MongoClient,
     private readonly collectionName = "countries"
   ) {
-    this.collection = this.dbClient.db().collection<Hotel>(this.collectionName);
+    this.collection = this.dbClient
+      .db()
+      .collection<Country>(this.collectionName);
   }
 
   async listCountries(country?: string) {
