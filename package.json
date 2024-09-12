@@ -14,9 +14,11 @@
     "api-no-watch": "npm run -w api dev:no-watch"
   },
   "devDependencies": {
+    "@types/lodash": "^4.17.7",
     "concurrently": "^8.2.2"
   },
   "dependencies": {
-    "full-stack-search": "file:"
+    "full-stack-search": "file:",
+    "lodash": "^4.17.21"
   }
 }
