@@ -65,6 +65,14 @@ app.get("/search", async (req, res) => {
   }
 });
 
+process.on("uncaughtException", (err) => {
+  console.error("Unhandled Exception:", err);
+});
+
+process.on("unhandledRejection", (err) => {
+  console.error("Unhandled Rejection:", err);
+});
+
 app.listen(PORT, () => {
   console.log(`API Server Started at ${PORT}`)
 })
