@@ -49,15 +49,42 @@ app.get('/hotels', async (req, res) => {
   }
 })
 
-app.get("/search", async (req, res) => {
+app.get("hotels/search", async (req, res) => {
   try {
+    const searchQuery = req.query.q?.toString().toLowerCase() || ""; // Get the search query from request
+
     const db = await connectToDatabase();
     const citiesCollection = db.collection("cities");
     const hotelsCollection = db.collection("hotels");
     const countriesCollection = db.collection("countries");
-    const cities = await citiesCollection.find().toArray();
-    const hotels = await hotelsCollection.find().toArray();
-    const countries = await countriesCollection.find().toArray();
+
+    // Create regex for case-insensitive search
+    const searchRegex = new RegExp(searchQuery, "i");
+
+    // Filter hotels, countries, and cities using the search query
+    const hotels = await hotelsCollection
+      .find({
+        $or: [
+          { chain_name: { $regex: searchRegex } },
+          { hotel_name: { $regex: searchRegex } },
+          { city: { $regex: searchRegex } },
+          { country: { $regex: searchRegex } },
+        ],
+      })
+      .toArray();
+
+    const countries = await countriesCollection
+      .find({
+        $or: [
+          { country: { $regex: searchRegex } },
+          { countryisocode: { $regex: searchRegex } },
+        ],
+      })
+      .toArray();
+
+    const cities = await citiesCollection
+      .find({ name: { $regex: searchRegex } })
+      .toArray();
     res.status(200).send({ cities, hotels, countries });
   } catch (error) {
     console.error("Error fetching data:", error);
