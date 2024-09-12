@@ -2,6 +2,11 @@ import { useState, type ChangeEvent, useCallback } from "react";
 import { getCodeSandboxHost } from "@codesandbox/utils";
 import debounce from "lodash/debounce";
 
+type ApiResponse = {
+  hotels: Hotel[];
+  countries: Country[];
+  cities: City[];
+};
 type Hotel = {
   _id: string;
   chain_name: string;
@@ -19,12 +24,6 @@ type Country = {
 type City = {
   _id: string;
   name: string;
-};
-
-type ApiResponse = {
-  hotels: Hotel[];
-  countries: Country[];
-  cities: City[];
 };
 
 const codeSandboxHost = getCodeSandboxHost(3001);
@@ -96,7 +95,6 @@ function App() {
     setSearchValue("");
     setShowClearBtn(false);
   };
-
   return (
     <div className="App">
       <div className="container">

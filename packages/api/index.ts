@@ -49,7 +49,7 @@ app.get('/hotels', async (req, res) => {
   }
 })
 
-app.get("hotels/search", async (req, res) => {
+app.get("/hotels/search", async (req, res) => {
   try {
     const searchQuery = req.query.q?.toString().toLowerCase() || "";
 
