@@ -104,7 +104,11 @@ function App() {
                   </span>
                 )}
               </div>
-              {!!hotels.length && (
+
+              {loading && <div className="loading-spinner">Loading...</div>}
+              {error && <p className="error">{error}</p>}
+
+              {!!hotels.length && !loading && (
                 <div className="search-dropdown-menu dropdown-menu w-100 show p-2">
                   <h2>Hotels</h2>
                   {hotels.length ? (
@@ -123,10 +127,42 @@ function App() {
                   ) : (
                     <p>No hotels matched</p>
                   )}
+
                   <h2>Countries</h2>
-                  <p>No countries matched</p>
+                  {countries.length ? (
+                    countries.map((country, index) => (
+                      <li key={index}>
+                        <a
+                          href={`/countries/${country._id}`}
+                          className="dropdown-item"
+                        >
+                          <i className="fa fa-map-marker mr-2"></i>
+                          {country.country}
+                        </a>
+                        <hr className="divider" />
+                      </li>
+                    ))
+                  ) : (
+                    <p>No countries matched</p>
+                  )}
+
                   <h2>Cities</h2>
-                  <p>No cities matched</p>
+                  {cities.length ? (
+                    cities.map((city, index) => (
+                      <li key={index}>
+                        <a
+                          href={`/cities/${city._id}`}
+                          className="dropdown-item"
+                        >
+                          <i className="fa fa-city mr-2"></i>
+                          {city.name}
+                        </a>
+                        <hr className="divider" />
+                      </li>
+                    ))
+                  ) : (
+                    <p>No cities matched</p>
+                  )}
                 </div>
               )}
             </div>
