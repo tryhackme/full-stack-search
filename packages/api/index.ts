@@ -49,6 +49,22 @@ app.get('/hotels', async (req, res) => {
   }
 })
 
+app.get("/search", async (req, res) => {
+  try {
+    const db = await connectToDatabase();
+    const citiesCollection = db.collection("cities");
+    const hotelsCollection = db.collection("hotels");
+    const countriesCollection = db.collection("countries");
+    const cities = await citiesCollection.find().toArray();
+    const hotels = await hotelsCollection.find().toArray();
+    const countries = await countriesCollection.find().toArray();
+    res.status(200).send({ cities, hotels, countries });
+  } catch (error) {
+    console.error("Error fetching data:", error);
+    res.status(500).send({ error: "Internal Server Error" });
+  }
+});
+
 app.listen(PORT, () => {
   console.log(`API Server Started at ${PORT}`)
 })
