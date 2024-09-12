@@ -73,8 +73,8 @@ function App() {
 
   const clearSearch = () => {
     setHotels([]);
-    setCountries([]); // Clear countries
-    setCities([]); // Clear cities
+    setCountries([]);
+    setCities([]);
     setSearchValue("");
     setShowClearBtn(false);
   };
@@ -92,9 +92,14 @@ function App() {
                   className="form-control form-input"
                   placeholder="Search accommodation..."
                   onChange={fetchData}
+                  value={searchValue}
                 />
                 {showClearBtn && (
-                  <span className="left-pan">
+                  <span
+                    className="left-pan"
+                    onClick={clearSearch}
+                    role="button"
+                  >
                     <i className="fa fa-close"></i>
                   </span>
                 )}
@@ -102,15 +107,22 @@ function App() {
               {!!hotels.length && (
                 <div className="search-dropdown-menu dropdown-menu w-100 show p-2">
                   <h2>Hotels</h2>
-                  {hotels.length ? hotels.map((hotel, index) => (
-                    <li key={index}>
-                      <a href={`/hotels/${hotel._id}`} className="dropdown-item">
-                        <i className="fa fa-building mr-2"></i>
-                        {hotel.hotel_name}
-                      </a>
-                      <hr className="divider" />
-                    </li>
-                  )) : <p>No hotels matched</p>}
+                  {hotels.length ? (
+                    hotels.map((hotel, index) => (
+                      <li key={index}>
+                        <a
+                          href={`/hotels/${hotel._id}`}
+                          className="dropdown-item"
+                        >
+                          <i className="fa fa-building mr-2"></i>
+                          {hotel.hotel_name}
+                        </a>
+                        <hr className="divider" />
+                      </li>
+                    ))
+                  ) : (
+                    <p>No hotels matched</p>
+                  )}
                   <h2>Countries</h2>
                   <p>No countries matched</p>
                   <h2>Cities</h2>
