@@ -13,27 +13,16 @@ const codeSandboxHost = getCodeSandboxHost(3001)
 const API_URL = codeSandboxHost ? `https://${codeSandboxHost}` : 'http://localhost:3001'
 
 const fetchAndFilterData = async (value: string) => {
-  const response = await fetch(`${API_URL}/search`);
+  const response = await fetch(
+    `${API_URL}/hotels/search?q=${encodeURIComponent(value)}`
+  );
   const data = (await response.json()) as ApiResponse;
-  const filteredHotels = data.hotels.filter(
-    ({ chain_name, hotel_name, city, country }) =>
-      chain_name?.toLowerCase().includes(value.toLowerCase()) ||
-      hotel_name?.toLowerCase().includes(value.toLowerCase()) ||
-      city?.toLowerCase().includes(value.toLowerCase()) ||
-      country?.toLowerCase().includes(value.toLowerCase())
-  );
 
-  const filteredCountries = data.countries.filter(
-    ({ country, countryisocode }) =>
-      country?.toLowerCase().includes(value.toLowerCase()) ||
-      countryisocode?.toLowerCase().includes(value.toLowerCase())
-  );
-
-  const filteredCities = data.cities.filter(({ name }) =>
-    name.toLowerCase().includes(value.toLowerCase())
-  );
-
-  return { filteredHotels, filteredCountries, filteredCities };
+  return {
+    filteredHotels: data.hotels,
+    filteredCountries: data.countries,
+    filteredCities: data.cities,
+  };
 };
 
 function App() {

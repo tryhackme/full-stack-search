@@ -51,17 +51,15 @@ app.get('/hotels', async (req, res) => {
 
 app.get("hotels/search", async (req, res) => {
   try {
-    const searchQuery = req.query.q?.toString().toLowerCase() || ""; // Get the search query from request
+    const searchQuery = req.query.q?.toString().toLowerCase() || "";
 
     const db = await connectToDatabase();
     const citiesCollection = db.collection("cities");
     const hotelsCollection = db.collection("hotels");
     const countriesCollection = db.collection("countries");
 
-    // Create regex for case-insensitive search
     const searchRegex = new RegExp(searchQuery, "i");
 
-    // Filter hotels, countries, and cities using the search query
     const hotels = await hotelsCollection
       .find({
         $or: [
