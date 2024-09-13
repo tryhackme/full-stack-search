@@ -1,7 +1,7 @@
 import express from "express";
 import dotenv from "dotenv";
 import cors from 'cors';
-import { MongoClient } from "mongodb";
+import { MongoClient, ObjectId } from "mongodb";
 
 dotenv.config();
 
@@ -86,6 +86,58 @@ app.get("/hotels/search", async (req, res) => {
     res.status(200).send({ cities, hotels, countries });
   } catch (error) {
     console.error("Error fetching data:", error);
+    res.status(500).send({ error: "Internal Server Error" });
+  }
+});
+
+app.get("/hotels/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+    const db = await connectToDatabase();
+    const hotel = await db
+      .collection("hotels")
+      .findOne({ _id: new ObjectId(id) });
+    if (!hotel) {
+      return res.status(404).send({ error: "Hotel not found" });
+    }
+    console.log({ hotel });
+    res.status(200).send(hotel);
+  } catch (error) {
+    console.error("Error fetching hotel details:", error);
+    res.status(500).send({ error: "Internal Server Error" });
+  }
+});
+
+app.get("/cities/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+    const db = await connectToDatabase();
+    const city = await db
+      .collection("cities")
+      .findOne({ _id: new ObjectId(id) });
+    if (!city) {
+      return res.status(404).send({ error: "City not found" });
+    }
+    res.status(200).send(city);
+  } catch (error) {
+    console.error("Error fetching city details:", error);
+    res.status(500).send({ error: "Internal Server Error" });
+  }
+});
+
+app.get("/countries/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+    const db = await connectToDatabase();
+    const country = await db
+      .collection("countries")
+      .findOne({ _id: new ObjectId(id) });
+    if (!country) {
+      return res.status(404).send({ error: "Country not found" });
+    }
+    res.status(200).send(country);
+  } catch (error) {
+    console.error("Error fetching country details:", error);
     res.status(500).send({ error: "Internal Server Error" });
   }
 });
