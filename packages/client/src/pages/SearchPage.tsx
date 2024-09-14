@@ -6,7 +6,7 @@ import SearchForm from "../components/SearchForm";
 import SearchResults from "../components/SearchResults";
 
 
-function SearchPage() {
+const SearchPage: React.FC = () => {
   const [hotels, setHotels] = useState<Hotel[]>([]);
   const [countries, setCountries] = useState<Country[]>([]);
   const [cities, setCities] = useState<City[]>([]);
@@ -85,6 +85,6 @@ function SearchPage() {
       </div>
     </div>
   );
-}
+};
 
 export default SearchPage;

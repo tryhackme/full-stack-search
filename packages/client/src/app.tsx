@@ -7,17 +7,14 @@ function App() {
     <Router>
       <Routes>
         <Route path="/" element={<SearchPage />} />
-        <Route
-          path="/hotels/:id"
-          element={<DetailPage title="Hotel Details" />}
-        />
+        <Route path="/hotels/:id" element={<DetailPage type="hotels" />} />
         <Route
           path="/countries/:id"
-          element={<DetailPage title="Country Details" />}
+          element={<DetailPage type="countries" />}
         />
         <Route
           path="/cities/:id"
-          element={<DetailPage title="City Details" />}
+          element={<DetailPage type="cities" />}
         />
       </Routes>
     </Router>
