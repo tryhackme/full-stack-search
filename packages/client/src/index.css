@@ -84,3 +84,13 @@ body {
   max-height: 450px;
   overflow: scroll;
 }
+
+.custom-link {
+  color: #333;
+  text-decoration: none;
+}
+
+.custom-link:hover {
+  color: #007BFF;
+  text-decoration: underline;
+}

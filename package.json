@@ -19,6 +19,7 @@
   },
   "dependencies": {
     "full-stack-search": "file:",
-    "lodash": "^4.17.21"
+    "lodash": "^4.17.21",
+    "react-router-dom": "^6.26.2"
   }
 }

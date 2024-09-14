@@ -1,6 +1,7 @@
 import { useState, type ChangeEvent, useCallback } from "react";
 import { getCodeSandboxHost } from "@codesandbox/utils";
 import debounce from "lodash/debounce";
+import { BrowserRouter as Router, Route, Routes, Link } from "react-router-dom";
 
 type ApiResponse = {
   hotels: Hotel[];
@@ -35,8 +36,9 @@ const fetchAndFilterData = async (value: string) => {
   const response = await fetch(
     `${API_URL}/hotels/search?q=${encodeURIComponent(value)}`
   );
-  const data = (await response.json()) as ApiResponse;
 
+  const data = (await response.json()) as ApiResponse;
+  
   return {
     filteredHotels: data.hotels,
     filteredCountries: data.countries,
@@ -44,7 +46,15 @@ const fetchAndFilterData = async (value: string) => {
   };
 };
 
-function App() {
+// Detail Page Component for Hotel, Country, or City
+const DetailPage = ({ title }: { title: string }) => (
+  <div>
+    <h1>{title}</h1>
+    <p>More details about {title} will go here.</p>
+  </div>
+);
+
+function SearchPage() {
   const [hotels, setHotels] = useState<Hotel[]>([]);
   const [countries, setCountries] = useState<Country[]>([]);
   const [cities, setCities] = useState<City[]>([]);
@@ -128,15 +138,15 @@ function App() {
                 <div className="search-dropdown-menu dropdown-menu w-100 show p-2">
                   <h2>Hotels</h2>
                   {hotels.length ? (
-                    hotels.map((hotel, index) => (
-                      <li key={index}>
-                        <a
-                          href={`/hotels/${hotel._id}`}
-                          className="dropdown-item"
+                    hotels.map((hotel) => (
+                      <li key={hotel._id}>
+                        <Link
+                          to={`/hotels/${hotel._id}`}
+                          className="custom-link"
                         >
                           <i className="fa fa-building mr-2"></i>
                           {hotel.hotel_name}
-                        </a>
+                        </Link>
                         <hr className="divider" />
                       </li>
                     ))
@@ -146,15 +156,15 @@ function App() {
 
                   <h2>Countries</h2>
                   {countries.length ? (
-                    countries.map((country, index) => (
-                      <li key={index}>
-                        <a
-                          href={`/countries/${country._id}`}
-                          className="dropdown-item"
+                    countries.map((country) => (
+                      <li key={country._id}>
+                        <Link
+                          to={`/countries/${country._id}`}
+                          className="custom-link"
                         >
                           <i className="fa fa-map-marker mr-2"></i>
                           {country.country}
-                        </a>
+                        </Link>
                         <hr className="divider" />
                       </li>
                     ))
@@ -164,15 +174,15 @@ function App() {
 
                   <h2>Cities</h2>
                   {cities.length ? (
-                    cities.map((city, index) => (
-                      <li key={index}>
-                        <a
-                          href={`/cities/${city._id}`}
-                          className="dropdown-item"
+                    cities.map((city) => (
+                      <li key={city._id}>
+                        <Link
+                          to={`/cities/${city._id}`}
+                          className="custom-link"
                         >
                           <i className="fa fa-city mr-2"></i>
                           {city.name}
-                        </a>
+                        </Link>
                         <hr className="divider" />
                       </li>
                     ))
@@ -186,6 +196,31 @@ function App() {
         </div>
       </div>
     </div>
+  );
+}
+
+function App() {
+  return (
+    <Router>
+      <Routes>
+        {/* Main Search Page */}
+        <Route path="/" element={<SearchPage />} />
+
+        {/* Dynamic Detail Pages for Hotel, Country, and City */}
+        <Route
+          path="/hotels/:id"
+          element={<DetailPage title="Hotel Details" />}
+        />
+        <Route
+          path="/countries/:id"
+          element={<DetailPage title="Country Details" />}
+        />
+        <Route
+          path="/cities/:id"
+          element={<DetailPage title="City Details" />}
+        />
+      </Routes>
+    </Router>
   );
 }
 
