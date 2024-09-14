@@ -1,4 +1,3 @@
-// types.ts
 export type Hotel = {
   _id: string;
   chain_name: string;
@@ -18,13 +17,8 @@ export type City = {
   name: string;
 };
 
-export type SearchResults = {
+export type ApiResponse = {
   hotels: Hotel[];
   countries: Country[];
   cities: City[];
 };
-
-export interface SearchContextType {
-  searchResults: SearchResults;
-  setSearchResults: (results: SearchResults) => void;
-}
