@@ -46,7 +46,6 @@ const fetchAndFilterData = async (value: string) => {
   };
 };
 
-// Detail Page Component for Hotel, Country, or City
 const DetailPage = ({ title }: { title: string }) => (
   <div>
     <h1>{title}</h1>
@@ -203,10 +202,7 @@ function App() {
   return (
     <Router>
       <Routes>
-        {/* Main Search Page */}
         <Route path="/" element={<SearchPage />} />
-
-        {/* Dynamic Detail Pages for Hotel, Country, and City */}
         <Route
           path="/hotels/:id"
           element={<DetailPage title="Hotel Details" />}
