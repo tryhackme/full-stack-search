@@ -83,7 +83,26 @@ app.get("/hotels/search", async (req, res) => {
     const cities = await citiesCollection
       .find({ name: { $regex: searchRegex } })
       .toArray();
-    res.status(200).send({ cities, hotels, countries });
+
+    const uniqueHotels = hotels.filter(
+      (hotel, index, self) =>
+        index === self.findIndex((t) => t._id === hotel._id)
+    );
+
+    const uniqueCountries = countries.filter(
+      (country, index, self) =>
+        index === self.findIndex((c) => c._id === country._id)
+    );
+
+    const uniqueCities = cities.filter(
+      (city, index, self) => index === self.findIndex((c) => c._id === city._id)
+    );
+
+    res.status(200).send({
+      cities: uniqueCities,
+      hotels: uniqueHotels,
+      countries: uniqueCountries,
+    });
   } catch (error) {
     console.error("Error fetching data:", error);
     res.status(500).send({ error: "Internal Server Error" });
