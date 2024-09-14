@@ -1,10 +1,5 @@
-import { getCodeSandboxHost } from "@codesandbox/utils";
 import { ApiResponse } from "./types";
-
-const codeSandboxHost = getCodeSandboxHost(3001);
-const API_URL = codeSandboxHost
-  ? `https://${codeSandboxHost}`
-  : "http://localhost:3001";
+import { API_URL } from "./constants";
 
 export const fetchAndFilterData = async (value: string) => {
   const response = await fetch(

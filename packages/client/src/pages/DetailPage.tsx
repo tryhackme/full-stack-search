@@ -1,8 +1,7 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { Hotel, Country, City } from "../utils/types";
-
-const API_URL = "http://localhost:3001";
+import { API_URL } from "../utils/constants";
 
 interface DetailPageProps {
   type: "hotels" | "countries" | "cities";
