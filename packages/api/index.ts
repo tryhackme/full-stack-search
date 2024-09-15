@@ -119,7 +119,6 @@ app.get("/hotels/:id", async (req, res) => {
     if (!hotel) {
       return res.status(404).send({ error: "Hotel not found" });
     }
-    console.log({ hotel });
     res.status(200).send(hotel);
   } catch (error) {
     console.error("Error fetching hotel details:", error);
