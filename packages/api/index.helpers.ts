@@ -29,3 +29,13 @@ export const queryCollection = async (
   }
 };
 
+/**
+ * Builds a MongoDB regex query object for a given field and value.
+ *
+ * @param {string} field - The field name to apply the regex query on.
+ * @param {string} value - The value to be used in the regex pattern.
+ * @returns {object} An object representing the regex query for the specified field.
+ */
+export const buildRegexQuery = (field: string, value: string) => ({
+  [field]: { $regex: new RegExp(value, "i") },
+});
