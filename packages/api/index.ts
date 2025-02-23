@@ -37,10 +37,10 @@ app.get("/hotels", async (req, res) => {
 });
 
 app.get("/countries", async (req, res) => {
-  const searchTerm = req.query.search ? req.query.search.toString() : "";
+  const { search } = req.query;
   let query = {};
-  if (searchTerm) {
-    query = buildRegexQuery("country", searchTerm);
+  if (search) {
+    query = buildRegexQuery("country", search.toString());
   }
 
   try {
@@ -55,10 +55,10 @@ app.get("/countries", async (req, res) => {
 });
 
 app.get("/cities", async (req, res) => {
-  const searchTerm = req.query.search ? req.query.search.toString() : "";
+  const { search } = req.query;
   let query = {};
-  if (searchTerm) {
-    query = buildRegexQuery("name", searchTerm);
+  if (search) {
+    query = buildRegexQuery("name", search.toString());
   }
 
   try {
