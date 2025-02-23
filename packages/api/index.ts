@@ -30,6 +30,24 @@ app.get("/hotels", async (req, res) => {
   }
 });
 
+app.get("/countries", async (req, res) => {
+  const searchTerm = req.query.q ? req.query.q.toString() : "";
+  let query = {};
+  if (searchTerm) {
+    query = buildRegexQuery("country", searchTerm);
+  }
+
+  try {
+    const countries = await queryCollection("countries", query);
+    res.send(countries);
+  } catch (error) {
+    res.status(500).send({
+      error: error,
+      message: "Error Fetching countries",
+    });
+  }
+});
+
 app.listen(PORT, () => {
   console.log(`API Server Started at ${PORT}`);
 });
