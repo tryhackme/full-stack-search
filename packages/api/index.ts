@@ -8,15 +8,21 @@ app.use(cors());
 app.use(express.json());
 
 app.get("/hotels", async (req, res) => {
-  const searchTerm = req.query.search ? req.query.search.toString() : "";
+  const { search, country, city } = req.query;
+
   let query = {};
-  if (searchTerm) {
+
+  if (search) {
     query = {
       $or: [
-        buildRegexQuery("hotel_name", searchTerm),
-        buildRegexQuery("country", searchTerm),
+        buildRegexQuery("hotel_name", search.toString()),
+        buildRegexQuery("country", search.toString()),
       ],
     };
+  } else if (country) {
+    query = buildRegexQuery("country", country.toString());
+  } else if (city) {
+    query = buildRegexQuery("city", city.toString());
   }
 
   try {
