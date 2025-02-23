@@ -1,16 +1,6 @@
 import express from "express";
-import dotenv from "dotenv";
 import cors from "cors";
-import { buildRegexQuery, queryCollection } from "index.helpers";
-
-dotenv.config();
-
-if (process.env.NODE_ENV !== "production" && !process.env.DATABASE_URL) {
-  await import("./db/startAndSeedMemoryDB");
-}
-
-const PORT = process.env.PORT || 3001;
-if (!process.env.DATABASE_URL) throw new Error("DATABASE_URL is not set");
+import { buildRegexQuery, queryCollection, PORT } from "index.helpers";
 
 const app = express();
 

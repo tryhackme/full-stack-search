@@ -1,6 +1,17 @@
 import { MongoClient } from "mongodb";
 
-export const DATABASE_URL = process.env.DATABASE_URL as string;
+import dotenv from "dotenv";
+
+dotenv.config();
+
+if (process.env.NODE_ENV !== "production" && !process.env.DATABASE_URL) {
+  await import("./db/startAndSeedMemoryDB");
+}
+
+export const PORT = process.env.PORT || 3001;
+
+if (!process.env.DATABASE_URL) throw new Error("DATABASE_URL is not set");
+export const DATABASE_URL = process.env.DATABASE_URL;
 
 /**
  * Helper function to query a collection.
