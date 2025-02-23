@@ -8,7 +8,7 @@ app.use(cors());
 app.use(express.json());
 
 app.get("/hotels", async (req, res) => {
-  const searchTerm = req.query.q ? req.query.q.toString() : "";
+  const searchTerm = req.query.search ? req.query.search.toString() : "";
   let query = {};
   if (searchTerm) {
     query = {
@@ -31,7 +31,7 @@ app.get("/hotels", async (req, res) => {
 });
 
 app.get("/countries", async (req, res) => {
-  const searchTerm = req.query.q ? req.query.q.toString() : "";
+  const searchTerm = req.query.search ? req.query.search.toString() : "";
   let query = {};
   if (searchTerm) {
     query = buildRegexQuery("country", searchTerm);
@@ -49,7 +49,7 @@ app.get("/countries", async (req, res) => {
 });
 
 app.get("/cities", async (req, res) => {
-  const searchTerm = req.query.q ? req.query.q.toString() : "";
+  const searchTerm = req.query.search ? req.query.search.toString() : "";
   let query = {};
   if (searchTerm) {
     query = buildRegexQuery("name", searchTerm);
